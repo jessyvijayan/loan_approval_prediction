@@ -105,7 +105,7 @@ df.columns
 
 
 len(df.columns)
-df['No. of People in the Family'] = df['No. of People in the Family'].astype(str)
+#df['No. of People in the Family'] = df['No. of People in the Family'].astype(str)
 
 # ## Problem statement: 
 #     - To predict loan approval (1 or 0) based on applicant's details
