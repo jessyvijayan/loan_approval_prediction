@@ -105,7 +105,7 @@ df.columns
 
 
 len(df.columns)
-#df['No. of People in the Family'] = df['No. of People in the Family'].astype(str)
+
 
 # ## Problem statement: 
 #     - To predict loan approval (1 or 0) based on applicant's details
@@ -158,7 +158,7 @@ for i in df.columns:
 
 # ###  loan approval rate for applicants having credit score
 
-# In[117]:
+# In[14]:
 
 
 round((df.groupby('Credit_Score')['Loan_Status'].count().sort_values(ascending=False)[1]/df['Credit_Score'].count())*100,2)
@@ -171,38 +171,38 @@ round((df.groupby('Credit_Score')['Loan_Status'].count().sort_values(ascending=F
 #  - 10k to 15k
 #  - Above 15k
 
-# In[123]:
+# In[15]:
 
 
 df1 = pd.read_excel('Rocket_Loans.xlsx')
 
 
-# In[124]:
+# In[16]:
 
 
 df1
 
 
-# In[130]:
+# In[17]:
 
 
 df1['Loan_Bearer_Income'] + df1['Loan_Cobearer_Income'].value_counts()
 
 
-# In[132]:
+# In[18]:
 
 
 df1['freq'] = pd.cut(x=df1['Loan_Bearer_Income'] + df1['Loan_Cobearer_Income'],
                   bins=[0,5000,10000,15000,41667],include_lowest=True,labels=['Below 5k','5k to 10k','10k to 15k','Above 15k'])
 
 
-# In[138]:
+# In[19]:
 
 
 freq_table = pd.crosstab(df1['freq'],'frequency')
 
 
-# In[139]:
+# In[20]:
 
 
 freq_table
@@ -212,7 +212,7 @@ freq_table
 
 # ### 1. Custom descriptive statistics function
 
-# In[14]:
+# In[21]:
 
 
 def num_custom_summary(data):
@@ -273,7 +273,7 @@ def num_custom_summary(data):
     return result_df
 
 
-# In[15]:
+# In[22]:
 
 
 num_df = df[['Age','Loan_Bearer_Income','Loan_Cobearer_Income','Amount Disbursed']]
@@ -281,7 +281,7 @@ cat_df = df[['Sex','Married','No. of People in the Family','Qualification','Self
              'Credit_Score','Location_type','Loan_Status']]
 
 
-# In[16]:
+# In[23]:
 
 
 num_custom_summary(num_df)
@@ -291,7 +291,7 @@ num_custom_summary(num_df)
 #     1. The Amount Disbursed feature is the only one with null values 
 #     2. Loan_Bearer_Income,Loan_Cobearer_Income,Amount Disbursed contain sufficient amount of outliers and are highly positively skewed
 
-# In[17]:
+# In[24]:
 
 
 def cat_custom_summary(data):
@@ -318,7 +318,7 @@ def cat_custom_summary(data):
     return result_df
 
 
-# In[18]:
+# In[25]:
 
 
 cat_custom_summary(cat_df)
@@ -329,7 +329,7 @@ cat_custom_summary(cat_df)
 
 # ### 2. Dealing with missing values
 
-# In[19]:
+# In[26]:
 
 
 df.isnull().sum()
@@ -339,14 +339,14 @@ df.isnull().sum()
 #     1. Since there is no feature with more than 30% null values there is no need to delete any of the features
 #     2. Any form of imputation method will be suffice for missing value treatment
 
-# In[20]:
+# In[27]:
 
 
 null_data = df[df.isnull().any(axis=1)]
 a = null_data.isnull().sum(axis=1).tolist()
 
 
-# In[21]:
+# In[28]:
 
 
 j = 0
@@ -361,7 +361,7 @@ if j == 0:
 # #### Analysis:
 #     1. Hence we don't need to consider deleting any rows
 
-# In[22]:
+# In[29]:
 
 
 fig = plt.figure(figsize = (15,18))
@@ -396,7 +396,7 @@ plt.show()
 
 # ### 2.1. Using multivariate feature imputation
 
-# In[23]:
+# In[30]:
 
 
 num_df = df[['Age','Loan_Bearer_Income','Loan_Cobearer_Income','Amount Disbursed']]
@@ -404,50 +404,56 @@ cat_df = df[['Sex','Married','No. of People in the Family','Qualification','Self
              'Credit_Score','Location_type','Loan_Status']]
 
 
-# In[24]:
+# In[31]:
 
 
 imp2 = IterativeImputer(max_iter=10,random_state=10)
 
 
-# In[25]:
+# In[32]:
 
 
 num_df2 = pd.DataFrame(imp2.fit_transform(num_df),columns=['Age','Loan_Bearer_Income',
                                                            'Loan_Cobearer_Income','Amount Disbursed'])
 
 
-# In[26]:
+# In[33]:
 
 
 num_df2
 
 
-# In[27]:
+# In[105]:
+
+
+num_df.mean()
+
+
+# In[34]:
 
 
 ss = StandardScaler()
 
 
-# In[28]:
+# In[35]:
 
 
 num_df2 = pd.DataFrame(ss.fit_transform(num_df2),columns=num_df2.columns)
 
 
-# In[29]:
+# In[36]:
 
 
 num_df2
 
 
-# In[30]:
+# In[37]:
 
 
 num_df2.isnull().sum()
 
 
-# In[31]:
+# In[38]:
 
 
 X = df[['Sex','Married','No. of People in the Family','Qualification','Self_Employed','Loan_Tenure',
@@ -464,13 +470,13 @@ result_df = pd.DataFrame(data=result)
 result_df = result_df.T
 
 
-# In[32]:
+# In[39]:
 
 
 result_df.isnull().sum()
 
 
-# In[33]:
+# In[40]:
 
 
 cat_df2 = pd.DataFrame(imp2.fit_transform(result_df),columns=['Sex','Married','No. of People in the Family',
@@ -478,33 +484,39 @@ cat_df2 = pd.DataFrame(imp2.fit_transform(result_df),columns=['Sex','Married','N
                                                               'Credit_Score','Location_type','Loan_Status'])
 
 
-# In[34]:
+# In[41]:
 
 
 cat_df2.isnull().sum()
 
 
-# In[35]:
+# In[42]:
 
 
 cat_df2['Loan_Tenure'] = cat_df2['Loan_Tenure'].replace({12.0:1,36.0:2,60.0:3,84.0:4,120.0:5,180.0:6,240.0:7,300.0:8,360.0:9,480.0:10}).astype(int)
 
 
-# In[36]:
+# In[43]:
 
 
 df2 = cat_df2.join(num_df2)
 
 
-# In[37]:
+# In[44]:
 
 
 df2.head()
 
 
+# In[109]:
+
+
+df.head()
+
+
 # ### 3. Dealing with outliers
 
-# In[38]:
+# In[45]:
 
 
 df.boxplot(figsize= (10,6))
@@ -515,13 +527,13 @@ df.boxplot(figsize= (10,6))
 #     2. Since Loan_Tenure and Credit_Score are considered as categorical features outliers are not considered
 #     3. There are no outliers in Age feature
 
-# In[39]:
+# In[46]:
 
 
 df['No. of People in the Family'].value_counts()
 
 
-# In[40]:
+# In[47]:
 
 
 fig = plt.figure(figsize = (15,20))
@@ -582,7 +594,7 @@ plt.show()
 #     1. None of the categorical features contain any outliers
 #     2. Loan_Bearer_Income,Loan_Cobearer_Income,Amount Disbursed have right tailed skewness or are positively skewed
 
-# In[41]:
+# In[48]:
 
 
 for i in num_df2.columns:
@@ -596,7 +608,7 @@ for i in num_df2.columns:
 
 # #### Applying log transformation
 
-# In[42]:
+# In[49]:
 
 
 num_df = df[['Age','Loan_Bearer_Income','Loan_Cobearer_Income','Amount Disbursed']]
@@ -604,14 +616,14 @@ cat_df = df[['Sex','Married','No. of People in the Family','Qualification','Self
              'Credit_Score','Location_type','Loan_Status']]
 
 
-# In[43]:
+# In[50]:
 
 
 for i in ['Loan_Bearer_Income','Loan_Cobearer_Income','Amount Disbursed']:   
     num_df2[i] = np.log(num_df2[i])       
 
 
-# In[44]:
+# In[51]:
 
 
 for i in num_df2.columns:
@@ -623,7 +635,7 @@ for i in num_df2.columns:
     print(f'{i} has {len((num_df2.loc[(num_df2[i]< lower_whisker) | (num_df2[i]> upper_whisker)]))} outliers')
 
 
-# In[45]:
+# In[52]:
 
 
 sns.histplot(num_df2['Loan_Bearer_Income'])
@@ -633,7 +645,7 @@ sns.histplot(num_df2['Loan_Bearer_Income'])
 
 # ### Stage 1: Correlation heatmap
 
-# In[46]:
+# In[53]:
 
 
 corr = df2.corr()
@@ -650,7 +662,7 @@ sns.heatmap(corr,annot=True)
 
 # ### Stage 2: Variance Inflation Factor(VIF)
 
-# In[47]:
+# In[54]:
 
 
 def VIF(features):
@@ -661,13 +673,13 @@ def VIF(features):
     return vif
 
 
-# In[48]:
+# In[55]:
 
 
 df2.columns
 
 
-# In[49]:
+# In[56]:
 
 
 VIF(df2.drop('Loan_Status',axis=1))
@@ -678,7 +690,7 @@ VIF(df2.drop('Loan_Status',axis=1))
 
 # ### Correlation with target feature
 
-# In[50]:
+# In[57]:
 
 
 def cwt(data,t_col):
@@ -690,7 +702,7 @@ def cwt(data,t_col):
     return result.sort_values(by= ['Correlation'])
 
 
-# In[51]:
+# In[58]:
 
 
 cwt(df2,'Loan_Status')
@@ -701,7 +713,7 @@ cwt(df2,'Loan_Status')
 
 # ## Applying PCA to treat multicollinearity
 
-# In[52]:
+# In[59]:
 
 
 def pca_func(X):
@@ -728,13 +740,13 @@ def pca_func(X):
     return pca_df
 
 
-# In[53]:
+# In[60]:
 
 
 pca_df2 = pca_func(df2.drop('Loan_Status',axis=1))
 
 
-# In[54]:
+# In[61]:
 
 
 pca_df2.head()
@@ -742,13 +754,13 @@ pca_df2.head()
 
 # ### Joining PCA feature with target feature
 
-# In[55]:
+# In[62]:
 
 
 transformed_df2 = pca_df2.join(df2['Loan_Status'])
 
 
-# In[56]:
+# In[63]:
 
 
 transformed_df2.head()
@@ -758,7 +770,7 @@ transformed_df2.head()
 
 # ### Train test split
 
-# In[57]:
+# In[64]:
 
 
 def train_and_test_split(data,y,test_size=0.2,random_state=10):
@@ -766,7 +778,7 @@ def train_and_test_split(data,y,test_size=0.2,random_state=10):
     return train_test_split(X,data[y],test_size=test_size,random_state=random_state,shuffle=True,stratify=data[y])
 
 
-# In[58]:
+# In[65]:
 
 
 def model_builder(model_name,estimator,data,t_col):
@@ -780,7 +792,7 @@ def model_builder(model_name,estimator,data,t_col):
 
 # ### Building multiple models
 
-# In[59]:
+# In[66]:
 
 
 def multiple_models(data,data1,t_col):
@@ -801,7 +813,7 @@ def multiple_models(data,data1,t_col):
     return result.sort_values(by=['F1_Score'],ascending=False,ignore_index=True)
 
 
-# In[60]:
+# In[67]:
 
 
 multiple_models(df2,transformed_df2,'Loan_Status')
@@ -809,7 +821,7 @@ multiple_models(df2,transformed_df2,'Loan_Status')
 
 # ## Cross Validation
 
-# In[61]:
+# In[68]:
 
 
 def kfold_cv(data,data1,t_col,cv=10):
@@ -845,7 +857,7 @@ def kfold_cv(data,data1,t_col,cv=10):
     return result_df.sort_values(by=['F1 Score'],ascending=False,ignore_index=True)
 
 
-# In[62]:
+# In[69]:
 
 
 kfold_cv(df2,transformed_df2,'Loan_Status')
@@ -904,7 +916,7 @@ def tuning(X,y,X1,y1,cv=10):
 tuning(df2.drop('Loan_Status',axis=1),df2['Loan_Status'],transformed_df2.drop('Loan_Status',axis=1),transformed_df2['Loan_Status'])
 
 
-# In[65]:
+# In[70]:
 
 
 def CV_post_hpt(X,y,X1,y1,cv=10):
@@ -955,7 +967,7 @@ def CV_post_hpt(X,y,X1,y1,cv=10):
     return result_df.sort_values(by='F1 Score',ascending=False,ignore_index=True)
 
 
-# In[66]:
+# In[71]:
 
 
 CV_post_hpt(df2.drop('Loan_Status',axis=1),df2['Loan_Status'],transformed_df2.drop('Loan_Status',axis=1),transformed_df2['Loan_Status'])
@@ -963,14 +975,14 @@ CV_post_hpt(df2.drop('Loan_Status',axis=1),df2['Loan_Status'],transformed_df2.dr
 
 # ## Clustering
 
-# In[67]:
+# In[72]:
 
 
 labels = KMeans(n_clusters = 2,random_state = 10)
 cluster = labels.fit_predict(df2.drop('Loan_Status',axis=1))
 
 
-# In[68]:
+# In[73]:
 
 
 def clustering(x,t_col,cluster):
@@ -991,13 +1003,13 @@ def clustering(x,t_col,cluster):
                 a+=1
 
 
-# In[69]:
+# In[74]:
 
 
 X = df2.drop('Loan_Status',axis=1)
 
 
-# In[70]:
+# In[75]:
 
 
 for col in X.columns:
@@ -1007,47 +1019,47 @@ for col in X.columns:
 # #### Analysis:
 #     Loan_Tenure forms clusters with all features
 
-# In[71]:
+# In[76]:
 
 
 new_df2 = df2.join(pd.DataFrame(cluster,columns=['clusters']),how='left')
 new_df2.head()
 
 
-# In[72]:
+# In[77]:
 
 
 temp_df2 = new_df2.groupby('clusters')['Loan_Status'].agg(['mean','median'])
 temp_df2.head()
 
 
-# In[73]:
+# In[78]:
 
 
 cluster_df2 = new_df2.merge(temp_df2,on= 'clusters',how='left')
 cluster_df2.head()
 
 
-# In[74]:
+# In[79]:
 
 
 X = cluster_df2.drop(['Loan_Status','clusters'],axis=1)
 y = cluster_df2['Loan_Status']
 
 
-# In[75]:
+# In[80]:
 
 
 multiple_models(cluster_df2,cluster_df2,'Loan_Status')
 
 
-# In[76]:
+# In[81]:
 
 
 kfold_cv(cluster_df2,cluster_df2,'Loan_Status')
 
 
-# In[77]:
+# In[82]:
 
 
 CV_post_hpt(X,y,X,y)
@@ -1055,31 +1067,31 @@ CV_post_hpt(X,y,X,y)
 
 # ## Feature importance using XGBoost
 
-# In[78]:
+# In[83]:
 
 
 X_train,X_test,y_train,y_test = train_and_test_split(cluster_df2.drop('clusters',axis=1),'Loan_Status')
 
 
-# In[79]:
+# In[84]:
 
 
 xgb = XGBClassifier()
 
 
-# In[80]:
+# In[85]:
 
 
 xgb.fit(X_train,y_train)
 
 
-# In[81]:
+# In[86]:
 
 
 xgboost.plot_importance(xgb)
 
 
-# In[82]:
+# In[87]:
 
 
 f_df2 = cluster_df2[['Loan_Bearer_Income','Amount Disbursed','Age','Loan_Cobearer_Income','Location_type',
@@ -1087,7 +1099,7 @@ f_df2 = cluster_df2[['Loan_Bearer_Income','Amount Disbursed','Age','Loan_Cobeare
 f_df2.head()
 
 
-# In[83]:
+# In[88]:
 
 
 CV_post_hpt(f_df2.drop('Loan_Status',axis=1),f_df2['Loan_Status'],
@@ -1096,31 +1108,31 @@ CV_post_hpt(f_df2.drop('Loan_Status',axis=1),f_df2['Loan_Status'],
 
 # ## RFE
 
-# In[84]:
+# In[89]:
 
 
 rfe = RFE(xgb)
 
 
-# In[85]:
+# In[90]:
 
 
 rfe.fit(X_train,y_train)
 
 
-# In[86]:
+# In[91]:
 
 
 rfe.support_
 
 
-# In[87]:
+# In[92]:
 
 
 X_train.columns
 
 
-# In[88]:
+# In[93]:
 
 
 rfe_df2 = cluster_df2[['Qualification','Self_Employed', 'Loan_Tenure', 'Credit_Score', 'Location_type', 
@@ -1128,7 +1140,7 @@ rfe_df2 = cluster_df2[['Qualification','Self_Employed', 'Loan_Tenure', 'Credit_S
 rfe_df2.head()
 
 
-# In[89]:
+# In[94]:
 
 
 CV_post_hpt(rfe_df2.drop('Loan_Status',1),rfe_df2['Loan_Status'],
@@ -1137,7 +1149,7 @@ CV_post_hpt(rfe_df2.drop('Loan_Status',1),rfe_df2['Loan_Status'],
 
 # ## Learning curve analysis
 
-# In[90]:
+# In[95]:
 
 
 def generate_learning_curve(model_name,estimator,X,y,cv=10):
@@ -1152,7 +1164,7 @@ def generate_learning_curve(model_name,estimator,X,y,cv=10):
     plt.legend(('Training_accuracy','Testing_accuracy'))
 
 
-# In[91]:
+# In[96]:
 
 
 model_names = [LogisticRegression(),SVC(),KNeighborsClassifier(),DecisionTreeClassifier(),
@@ -1162,4 +1174,36 @@ for a ,model in enumerate(model_names):
     fg = plt.figure(figsize=(12,15))
     ax = fg.add_subplot(5,2,a+1)
     generate_learning_curve(type(model_names[a]).__name__,model,rfe_df2.drop('Loan_Status',1),rfe_df2['Loan_Status'])
+
+
+# ### Final model - Decision Tree Classifier
+
+# In[170]:
+
+
+classifier = DecisionTreeClassifier(criterion='entropy',min_samples_leaf=50,max_depth=20)
+
+
+# In[171]:
+
+
+X_train,X_test,y_train,y_test = train_and_test_split(df2,'Loan_Status')
+classifier.fit(X_train,y_train)
+y_pred = classifier.predict(X_test)
+accuracy = accuracy_score(y_test,y_pred)
+fscore = f1_score(y_test,y_pred)
+
+
+# In[103]:
+
+
+# pickling the model
+import pickle
+pickle_out = open("loan_approval.pkl", "wb")
+pickle.dump(classifier, pickle_out)
+pickle_out.close()
+
+
+
+
 
