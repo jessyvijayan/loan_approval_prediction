@@ -33,9 +33,6 @@ def check_password():
         return True
 
 if check_password():
-    st.write("Here goes your normal Streamlit app...")
-    st.button("Click me")
-
   
     # loading in the model to predict on the data
     pickle_in = open('loan_approval.pkl', 'rb')
