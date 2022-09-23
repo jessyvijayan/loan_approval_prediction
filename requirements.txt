@@ -9,3 +9,4 @@ tensorflow==2.10.0
 xgboost==1.6.2
 openpyxl==3.0.7
 streamlit==1.12.2
+Pillow==9.2.0
