@@ -38,11 +38,6 @@ XGBoost Classifier	81.11%	0.872
 Key Insight: While XGBoost is often a go-to, the Decision Tree and AdaBoost models achieved the highest F1-Score (0.888), making them the most reliable choices for minimizing false approvals.
 
 💻 How to Run
-Clone the repo: git clone (https://github.com/jessyvijayan/loan_approval_prediction.git)
-Install dependencies: pip install -r requirements.txt
-Run the notebook or script: Loan_approval_prediction_ml.py
-
-💻 How to Run
 Clone the repository:
 git clone [(https://github.com/jessyvijayan/loan_approval_prediction.git)]
 
@@ -52,5 +47,5 @@ pip install -r requirements.txt
 
 Launch the Application:
 To run the interactive Streamlit dashboard:
-streamlit run streamlit_loan_approval.py
+streamlit run [streamlit_loan_approval.py](https://github.com/jessyvijayan/loan_approval_prediction/blob/main/streamlit_loan_approval.py)
 
