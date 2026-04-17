@@ -27,9 +27,35 @@ The pipeline evaluates multiple models using F1-Score and Accuracy as primary me
 Baseline: Logistic Regression
 Ensembles: XGBoost and Gradient Boosting (Optimized via Hyperparameter Tuning)
 Neural Network: A Multi-Layer Perceptron (MLP) built with Keras for capturing non-linear relationships.
+📈 Model Performance Benchmarking
+I conducted a comprehensive comparison using 10-fold Stratified Cross-Validation. The models were evaluated on Accuracy and F1-Score to account for class imbalance.
+Model Name	Accuracy	F1 Score
+Decision Tree Classifier	83.06%	0.888
+AdaBoost Classifier	83.06%	0.888
+Logistic Regression	82.90%	0.887
+Gradient Boosting	82.73%	0.886
+XGBoost Classifier	81.11%	0.872
+Key Insight: While XGBoost is often a go-to, the Decision Tree and AdaBoost models achieved the highest F1-Score (0.888), making them the most reliable choices for minimizing false approvals.
 
 💻 How to Run
 Clone the repo: git clone (https://github.com/jessyvijayan/loan_approval_prediction.git)
 Install dependencies: pip install -r requirements.txt
 Run the notebook or script: Loan_approval_prediction_ml.py
+
+💻 How to Run
+Clone the repository:
+bash
+git clone [(https://github.com/jessyvijayan/loan_approval_prediction.git)]
+Use code with caution.
+Install the dependencies:
+Using the requirements.txt file ensures all library versions match the development environment:
+bash
+pip install -r requirements.txt
+Use code with caution.
+Launch the Application:
+To run the interactive Streamlit dashboard:
+bash
+streamlit run [PASTE_YOUR_STREAMLIT_FILENAME].py
+Use code with caution.
+
 
