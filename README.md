@@ -23,6 +23,6 @@ Baseline: Logistic Regression
 Ensembles: XGBoost and Gradient Boosting (Optimized via Hyperparameter Tuning)
 Neural Network: A Multi-Layer Perceptron (MLP) built with Keras for capturing non-linear relationships.
 💻 How to Run
-Clone the repo: git clone [YOUR_REPO_LINK]
+Clone the repo: git clone (https://github.com/jessyvijayan/loan_approval_prediction.git)
 Install dependencies: pip install -r requirements.txt
 Run the notebook or script: python loan_prediction.py
