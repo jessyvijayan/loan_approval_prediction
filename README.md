@@ -44,18 +44,13 @@ Run the notebook or script: Loan_approval_prediction_ml.py
 
 💻 How to Run
 Clone the repository:
-bash
 git clone [(https://github.com/jessyvijayan/loan_approval_prediction.git)]
-Use code with caution.
+
 Install the dependencies:
 Using the requirements.txt file ensures all library versions match the development environment:
-bash
 pip install -r requirements.txt
-Use code with caution.
+
 Launch the Application:
 To run the interactive Streamlit dashboard:
-bash
 streamlit run [PASTE_YOUR_STREAMLIT_FILENAME].py
-Use code with caution.
-
 
