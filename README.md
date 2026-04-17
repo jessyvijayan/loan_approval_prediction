@@ -52,5 +52,5 @@ pip install -r requirements.txt
 
 Launch the Application:
 To run the interactive Streamlit dashboard:
-streamlit run [PASTE_YOUR_STREAMLIT_FILENAME].py
+streamlit run streamlit_loan_approval.py
 
